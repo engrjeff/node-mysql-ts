@@ -15,10 +15,6 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   error.message = err.message;
 
-  if (err instanceof TokenExpiredError) {
-    error = new ErrorResponse('Session Expired', 403);
-  }
-
   if (err instanceof JsonWebTokenError) {
     error = new ErrorResponse('Unauthorized', 401);
   }
