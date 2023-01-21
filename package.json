@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.ts",
     "init:db": "npx ts-node scripts/initializeDb.ts",
     "test": "jest --coverage",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watch"
   },
   "keywords": [
     "node",

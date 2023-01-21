@@ -18,11 +18,7 @@ const getAllUsers = async () => {
 const getUserById = async (id: string) => {
   const user = await dbClient.findById<User>(USER_TABLE, id);
 
-  if (!user) throw new ErrorResponse('User not found', 404);
-
-  const { password, ...foundUser } = user;
-
-  return foundUser;
+  return user;
 };
 
 const findByEmail = async (email: string) => {

@@ -1,4 +1,5 @@
 import type { RequestHandler } from 'express';
+import { ErrorResponse } from '../middlewares/errorHandler';
 import UserModel from './user.model';
 
 const getAll: RequestHandler = async (req, res, next) => {
@@ -13,7 +14,14 @@ const getAll: RequestHandler = async (req, res, next) => {
 
 const getById: RequestHandler = async (req, res, next) => {
   try {
-    const user = await UserModel.getUserById(req.params.id);
+    const foundUser = await UserModel.getUserById(req.params.id);
+
+    if (!foundUser) {
+      return next(new ErrorResponse('User not found', 404));
+    }
+
+    const { password, ...user } = foundUser;
+
     res.status(200).json({ status: 'success', user });
   } catch (error) {
     next(error);
